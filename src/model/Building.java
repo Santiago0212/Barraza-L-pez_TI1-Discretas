@@ -14,6 +14,7 @@ public class Building {
 	
 	Elevator elevator;
 	
+	
 	public Building(String name, int floorsNumber, int officesPerFloor) {
 		this.name = name;
 		this.floorsNumber = floorsNumber;
@@ -28,8 +29,17 @@ public class Building {
 		this.elevator = new Elevator(0, 1);
 	}
 	
-	public void addPerson(String name, int initialFloor, int officeWantToGo) {
-		waitingPeople.add(new Person(name, initialFloor-1, officeWantToGo-1, this.officesPerFloor));
+	
+	
+	public Hashtable<Integer, Person> getOffices() {
+		return offices;
+	}
+
+	public void addPerson(String name, int initialFloor, int officeWantToGo,int finalFloor) {
+		waitingPeople.add(new Person(name, initialFloor-1, officeWantToGo-1, finalFloor));
+	}
+	public void addPerson(Person p) {
+		waitingPeople.add(0, p);
 	}
 	
 	public void enterElevator() {
@@ -84,14 +94,23 @@ public class Building {
 	
 	public void exitElevator() {
 		Stack<Person> auxPeopleInsideElevator = (Stack<Person>) elevator.getPeopleInside().clone();
-		
+		//System.out.println("ESTAMOS EN EL PISO-----------------------------------------"+(elevator.getPos()+1));
 		while(!auxPeopleInsideElevator.isEmpty()) {
 			Person p = auxPeopleInsideElevator.pop();
+			//System.out.println("EL ELEVADOR ESTA EN EL PISO "+(elevator.getPos()+1));
 			if(p.getFinalFloor()==elevator.getPos()) {
 				offices.put(p.getOfficeWantToGo(), p);
+				//System.out.println(p.getName()+" SALIO PARA SU OFICINA porque esta en el piso "+p.getFinalFloor());
+				//System.out.println(waitingPeople);
+				//System.out.println(offices);
 				elevator.exit(p);
+			}else {
+				//System.out.println(p.getName()+" sale para volver a entrar porque quiere ir a la ofcinia "+(p.getOfficeWantToGo()+1)+" el el piso "+p.getFinalFloor());
+				addPerson(p);
+				elevator.getPeopleInside().pop();
 			}
 		}
+		auxPeopleInsideElevator.clear();
 	}
 	
 	public int getFloorToGoUp() {
@@ -163,12 +182,13 @@ public class Building {
 		String data = "";
 		
 		
-		data += "\n\nOffices:\n\n";
+		data += "\n";
 		
 		for(Integer i : offices.keySet()) {
-			data += offices.get(i).getName()+" va a la oficina "+((i-6)*-1)+"\n";
+			if(!offices.get(i).getName().equalsIgnoreCase("")) {
+				data += offices.get(i).getName()+" se mueve a la oficina "+(i+1)+"\n";
+			}
 		}
-		
 		return data;
 	}
 	

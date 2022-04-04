@@ -34,11 +34,12 @@ public class Elevator {
 	
 	public void enter(Person p) {
 		this.peopleInside.push(p);
-		System.out.println("adding... "+p.getName());
+		//System.out.println("adding... "+p.getName());
 	}
 	
 	public void exit(Person p) {
-		Stack<Person> auxInsidePeople = new Stack<Person>();
+		peopleInside.pop();
+		/*Stack<Person> auxInsidePeople = new Stack<Person>();
 		
 		while(!peopleInside.isEmpty()) {
 			Person personToExit = peopleInside.pop();
@@ -47,8 +48,9 @@ public class Elevator {
 			}
 		}
 		while(!auxInsidePeople.isEmpty()) {
-			peopleInside.push(auxInsidePeople.pop());
-		}
+			Person aux = auxInsidePeople.pop();
+			peopleInside.push(aux);
+		}*/
 		
 	}
 	

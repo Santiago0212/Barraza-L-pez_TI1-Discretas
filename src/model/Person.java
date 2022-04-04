@@ -14,7 +14,7 @@ public class Person {
 		this.initialFloor = initialFloor;
 		this.currentFloor = initialFloor;
 		this.officeWantToGo = officeWantToGo;
-		this.finalFloor = officeWantToGo/officesPerFloor;
+		this.finalFloor = officesPerFloor;
 	}
 
 	public String getName() {
@@ -66,7 +66,7 @@ public class Person {
 	}
 	
 	public String toString() {
-		return "Name: "+this.name+" Floor: "+(this.currentFloor+1);
+		return this.name;
 	}
 	
 }
