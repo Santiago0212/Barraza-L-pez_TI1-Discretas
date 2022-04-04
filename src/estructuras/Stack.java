@@ -6,7 +6,9 @@ public class Stack<T> {
 	public Stack() {
 		tope=null;
 	}
-	
+	public void clear() {
+		tope=new NodoSE<T>();
+	}
 	public boolean isEmpty() {
 		return tope==null;
 	}

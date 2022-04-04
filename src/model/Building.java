@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Stack;
 
+
 public class Building {
 	private String name;
 	private int floorsNumber;
@@ -52,7 +53,9 @@ public class Building {
 				}
 			}
 		}
-		
+		for (int i=0; i<peopleEntered.size(); i++) {
+			waitingPeople.remove(peopleEntered.get(i));
+		}
 		for(Person p : peopleEntered) {
 			waitingPeople.remove(p);
 		}
@@ -94,18 +97,12 @@ public class Building {
 	
 	public void exitElevator() {
 		Stack<Person> auxPeopleInsideElevator = (Stack<Person>) elevator.getPeopleInside().clone();
-		//System.out.println("ESTAMOS EN EL PISO-----------------------------------------"+(elevator.getPos()+1));
 		while(!auxPeopleInsideElevator.isEmpty()) {
 			Person p = auxPeopleInsideElevator.pop();
-			//System.out.println("EL ELEVADOR ESTA EN EL PISO "+(elevator.getPos()+1));
 			if(p.getFinalFloor()==elevator.getPos()) {
 				offices.put(p.getOfficeWantToGo(), p);
-				//System.out.println(p.getName()+" SALIO PARA SU OFICINA porque esta en el piso "+p.getFinalFloor());
-				//System.out.println(waitingPeople);
-				//System.out.println(offices);
 				elevator.exit(p);
 			}else {
-				//System.out.println(p.getName()+" sale para volver a entrar porque quiere ir a la ofcinia "+(p.getOfficeWantToGo()+1)+" el el piso "+p.getFinalFloor());
 				addPerson(p);
 				elevator.getPeopleInside().pop();
 			}
@@ -116,6 +113,7 @@ public class Building {
 	public int getFloorToGoUp() {
 		int menor = 1000000;
 		int floorToGo = -1;
+		
 		Stack<Person> auxPeopleInsideElevator = (Stack<Person>) elevator.getPeopleInside().clone();	
 		
 		while (!auxPeopleInsideElevator.isEmpty()) {
@@ -131,6 +129,7 @@ public class Building {
 		
 		LinkedList<Person> auxWaitingPeople = new LinkedList<Person>();
 		auxWaitingPeople = waitingPeople;
+		
 		
 		for(Person p : auxWaitingPeople) {
 			if(p.getFinalFloor()>elevator.getPos()) {
@@ -164,6 +163,7 @@ public class Building {
 		
 		LinkedList<Person> auxWaitingPeople = new LinkedList<Person>();
 		auxWaitingPeople = waitingPeople;
+		
 		
 		for(Person p : auxWaitingPeople) {
 			if(p.getFinalFloor()<elevator.getPos()) {

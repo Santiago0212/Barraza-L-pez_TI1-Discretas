@@ -3,8 +3,8 @@ package main;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 import model.Building;
-import model.Person;
 
 public class Main {
 	Scanner sc=new Scanner(System.in);
@@ -67,7 +67,6 @@ public class Main {
 	        	}
 	        	contador2--;
 	        }
-	       // System.out.println(offices);
 	        for(int j=0;j<numPersonas;j++) {
 				infoPer=sc.nextLine();
 				String[] infoPersonas = infoPer.split(" ");

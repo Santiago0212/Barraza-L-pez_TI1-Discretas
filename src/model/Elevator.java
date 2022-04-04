@@ -34,24 +34,10 @@ public class Elevator {
 	
 	public void enter(Person p) {
 		this.peopleInside.push(p);
-		//System.out.println("adding... "+p.getName());
 	}
 	
 	public void exit(Person p) {
 		peopleInside.pop();
-		/*Stack<Person> auxInsidePeople = new Stack<Person>();
-		
-		while(!peopleInside.isEmpty()) {
-			Person personToExit = peopleInside.pop();
-			if(!personToExit.equals(p)) {
-				auxInsidePeople.push(p);
-			}
-		}
-		while(!auxInsidePeople.isEmpty()) {
-			Person aux = auxInsidePeople.pop();
-			peopleInside.push(aux);
-		}*/
-		
 	}
 	
 	public void goUp() {
